@@ -16,6 +16,6 @@ int main ( void ) {
 
     while(1){
         cout << "Sensor Reading = " << QBBBA.GetCurrentReading() << endl;
-        //usleep(100000);
+        usleep(100000);
     }
 }

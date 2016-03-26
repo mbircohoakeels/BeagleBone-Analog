@@ -52,6 +52,10 @@ public:
                 AIN6 = 6,//!< Analog Port 6 (P9, Pin 35)
     };
 
+    enum AnalogType {
+        SONIC = 0,
+    };
+
     /**
 	 \fn Public function Analog_GetPort( void ) const
 	 \brief Gets the Analog Port that we will use on the BBB.
@@ -76,6 +80,14 @@ public:
     int Analog_SetPort( AnalogPort PortNum );
 
     /**
+     \fn Public function Analog_SetType( AnalogType AType )
+     \brief Sets the Analog Sensor Type for reference.
+     \param <AnalogType> AType
+     \return <void>
+     */
+    void Analog_SetType( AnalogType AType );
+
+    /**
      \fn Public static function Analog_GetValueAsInt( analog_inst )
      \brief Gets the value from the Analog Port as an integer and assigns it to this->AnalogReading
      \param <void>
@@ -89,7 +101,7 @@ public:
 
     void SetAverages( int iterations );
 
-    int DataStoredValues[MAX_DATASTORE];
+    double DataStoredValues[MAX_DATASTORE];
 
     int avgReading;
 
@@ -102,7 +114,7 @@ public:
 protected:
 
     int Analog_FileHandle; //!< Stores the Analog Devices File Handle
-    int AnalogValue; //!< AnalogValue contains the value read from the device.
+    double AnalogValue; //!< AnalogValue contains the value read from the device.
     int ThreadRet; //!< ThreadRet holds the value returned when starting a thread.
 
     FILE *aFile;
@@ -110,7 +122,7 @@ protected:
     char *buffer;
 
     AnalogPort AnalogPortNum; //!< AnalogPortNum must be a member of the AnalogPort enum.
-
+    AnalogType DeviceType;
     ostringstream AnalogPortNumStr; //!< AnalogPortNumStr converts the port to a string to append to the file location.
 
     string AnalogFileLocation; //!< AnalogFileLocation contains the full path to the analog file location.
@@ -123,7 +135,7 @@ protected:
 
     void AddToAnalogDataStore( ); //!< Adds to an array of the last X readings from the device.
 
-    int ConvertAnalogReadingToAltitude( );
+    double ConvertAnalogReadingToAltitude( );
 
     struct stat sb; //!< Used to discover if a folder or file exists already.
     /**

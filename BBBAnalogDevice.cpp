@@ -128,6 +128,16 @@ int BBBAnalogDevice::Analog_SetPort( AnalogPort PortNum ) {
 }
 
 /**
+ \fn Public function Analog_SetType( AnalogType AType )
+ \brief Sets the Analog Sensor Type for reference.
+ \param <AnalogType> AType
+ \return <void>
+ */
+void BBBAnalogDevice::Analog_SetType( AnalogType AType ) {
+    this->DeviceType = AType;
+}
+
+/**
  \fn Public function Analog_GetPort( void ) const
  \brief Gets the Analog Port that we will use on the BBB.
  \param <void>
@@ -203,6 +213,9 @@ void* BBBAnalogDevice::Analog_GetValueAsInt( void *analog_inst ) {
 
         _analog->AnalogValue = atoi(_analog->buffer);
 
+        if( _analog->DeviceType == SONIC )
+            _analog->AnalogValue = _analog->ConvertAnalogReadingToAltitude();
+
         _analog->AddToAnalogDataStore( );
 
         free(_analog->buffer);
@@ -221,7 +234,7 @@ void BBBAnalogDevice::AddToAnalogDataStore( ) {
     this->DataStoredValues[ MAX_DATASTORE ] = this->ConvertAnalogReadingToAltitude( );
 }
 
-int BBBAnalogDevice::ConvertAnalogReadingToAltitude( ) {
+double BBBAnalogDevice::ConvertAnalogReadingToAltitude( ) {
     return this->GetCurrentReading( ) / SONIC_MODIFYER;
 }
 
