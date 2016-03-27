@@ -101,7 +101,7 @@ public:
 
     void SetAverages( int iterations );
 
-    double DataStoredValues[MAX_DATASTORE];
+    int DataStoredValues[MAX_DATASTORE];
 
     int avgReading;
 
@@ -114,7 +114,7 @@ public:
 protected:
 
     int Analog_FileHandle; //!< Stores the Analog Devices File Handle
-    double AnalogValue; //!< AnalogValue contains the value read from the device.
+    int AnalogValue; //!< AnalogValue contains the value read from the device.
     int ThreadRet; //!< ThreadRet holds the value returned when starting a thread.
 
     FILE *aFile;
@@ -135,7 +135,7 @@ protected:
 
     void AddToAnalogDataStore( ); //!< Adds to an array of the last X readings from the device.
 
-    double ConvertAnalogReadingToAltitude( );
+    int ConvertAnalogReadingToAltitude( );
 
     struct stat sb; //!< Used to discover if a folder or file exists already.
     /**

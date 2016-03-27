@@ -39,8 +39,7 @@ int BBBAnalogDevice::Analog_PinCheck( void ) {
  \param <const char*> Analog_OverlayFile (just the file name, no path required)
  \return <int> -1 failure load the system files, 1 success.
  */
-int BBBAnalogDevice::
-Analog_LoadOverlay( const char* Analog_OverlayFile ) {
+int BBBAnalogDevice::Analog_LoadOverlay( const char* Analog_OverlayFile ) {
     if( this->Analog_SetFileHandle( SLOTS_DIR ) < 0 )
         return this->Analog_FileHandle;
     else {
@@ -231,11 +230,11 @@ void BBBAnalogDevice::AddToAnalogDataStore( ) {
     for( int i = 0; i < MAX_DATASTORE; i++ )
         this->DataStoredValues[ i ] = this->DataStoredValues[ i + 1 ];
 
-    this->DataStoredValues[ MAX_DATASTORE ] = this->ConvertAnalogReadingToAltitude( );
+    this->DataStoredValues[ MAX_DATASTORE ] = this->GetCurrentReading( ); //this->ConvertAnalogReadingToAltitude( );
 }
 
-double BBBAnalogDevice::ConvertAnalogReadingToAltitude( ) {
-    return this->GetCurrentReading( ) / SONIC_MODIFYER;
+int BBBAnalogDevice::ConvertAnalogReadingToAltitude( ) {
+    return (int)(this->GetCurrentReading( ) / SONIC_MODIFYER);
 }
 
 int BBBAnalogDevice::GetCurrentReading( ) {
