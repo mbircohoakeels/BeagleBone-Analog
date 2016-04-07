@@ -222,7 +222,6 @@ void* BBBAnalogDevice::Analog_GetValueAsInt( void *analog_inst ) {
         usleep( 5000 );
 
     }
-
     return 0;
 }
 
