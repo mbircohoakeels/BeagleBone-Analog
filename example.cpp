@@ -13,12 +13,13 @@ int main( ) {
     SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Cm );
 
     while( SonicSensor.CurrentStatus == LVMaxSonarEZ::DeviceStatus::On ) {
-        //SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Inches );
-        //cout << "Current Distance In Inches : " << SonicSensor.Distance( ) << endl;
-        //cout << "Current Distance In Cm : " << SonicSensor.Distance( ) << endl;
+        SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Inches );
+        cout << "Current Distance In Inches : " << SonicSensor.Distance( ) << endl;
+        SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Cm );
+        cout << "Current Distance In Cm : " << SonicSensor.Distance( ) << endl;
         usleep( SonicSensor.DataTimer );
     }
-    while( SonicSensor.CurrentStatus != LVMaxSonarEZ::DeviceStatus::On ) {
+    while( SonicSensor.CurrentStatus == LVMaxSonarEZ::DeviceStatus::Error ) {
         cout << "Error : " << SonicSensor.CurrentError << " | Status = " << SonicSensor.CurrentStatus << " | Mode = " << SonicSensor.CurrentMode << endl;
         usleep( 1000000 );
     }
