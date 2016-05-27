@@ -10,26 +10,29 @@
 #include "../iDeviceOverlay.h"
 #include "../../Exceptions/ExceptionAid.h"
 
-class AnalogOverlay: public iDeviceOverlay {
+namespace abAnalog {
 
-public:
-    AnalogOverlay( );
+    class AnalogOverlay : public iDeviceOverlay {
 
-    static struct OverlaySettings {
-        const char *Overlay = "cape-bone-iio";
-        const char *SearchFile = "AIN0";
-        const char *HelperParentDir = "/sys/devices/ocp.3/";
-        char *HelperPath;
-        bool OverlayLoaded = false;
-    } Settings;
+    public:
+        AnalogOverlay( ) throw( AnalogSetupException& );
 
-private:
+        struct OverlaySettings {
+            const char *Overlay = "cape-bone-iio";
+            const char *SearchFile = "AIN0";
+            const char *FileType = "AIN";
+            const char *HelperParentDir = "/sys/devices/ocp.3/";
+            char HelperPath[ MAX_BUF ];
+            bool OverlayLoaded;
+        } Settings;
 
-    void FindHelperDir( );
+        char AnalogFilePath[ MAX_BUF ];
 
-    char AnalogFilePath[MAX_BUF];
+    private:
 
-};
+        void FindHelperDir( );
 
+    };
 
+}
 #endif //ANALOGDEVICE_ANALOGOVERLAY_H

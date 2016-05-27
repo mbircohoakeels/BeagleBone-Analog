@@ -2,7 +2,24 @@
 
 using namespace std;
 
+#include "Lib/LVMaxSonarEZ/LVMaxSonarEZ.h"
+
 int main( ) {
-    cout << "Hello, World!" << endl;
-    return 0;
+    using namespace abAnalog;
+
+    LVMaxSonarEZ SonicSensor;
+    SonicSensor.Start( );
+    usleep( 1000000 );
+    SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Cm );
+
+    while( SonicSensor.CurrentStatus == LVMaxSonarEZ::DeviceStatus::On ) {
+        //SonicSensor.SetMode( LVMaxSonarEZ::DeviceMode::Inches );
+        //cout << "Current Distance In Inches : " << SonicSensor.Distance( ) << endl;
+        //cout << "Current Distance In Cm : " << SonicSensor.Distance( ) << endl;
+        usleep( SonicSensor.DataTimer );
+    }
+    while( SonicSensor.CurrentStatus != LVMaxSonarEZ::DeviceStatus::On ) {
+        cout << "Error : " << SonicSensor.CurrentError << " | Status = " << SonicSensor.CurrentStatus << " | Mode = " << SonicSensor.CurrentMode << endl;
+        usleep( 1000000 );
+    }
 }

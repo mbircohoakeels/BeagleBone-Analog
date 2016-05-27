@@ -5,7 +5,6 @@
 #include "iDeviceOverlay.h"
 
 iDeviceOverlay::iDeviceOverlay( ) {
-
 }
 
 bool iDeviceOverlay::IsLoaded( const char* SearchFile ) {
@@ -17,13 +16,13 @@ bool iDeviceOverlay::IsLoaded( const char* SearchFile ) {
 bool iDeviceOverlay::Load( const char* Overlay ) {
     try {
         this->FileHandle = open( SLOTS_DIR, O_WRONLY );
-        if( write( this->FileHandle, Overlay, sizeof( Overlay ) ) > 0 ) {
+        if( write( this->FileHandle, Overlay, 1024 ) > 0 ) {
             close( this->FileHandle );
             return true;
         }
         else
             return false;
     } catch( exception& e ) {
-
+        cerr << "Exception : " << e.what() << endl;
     }
 }

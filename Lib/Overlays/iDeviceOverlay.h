@@ -3,11 +3,16 @@
 //
 
 
-#include <unistd.h>
 #include <iostream>
-#include <bits/fcntl-linux.h>
+#include <exception>
+#include <sstream>
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <sys/stat.h>
+#include <pthread.h>
 
 #ifndef ANALOGDEVICE_OVERLAYS_H
 #define ANALOGDEVICE_OVERLAYS_H
